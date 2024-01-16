@@ -4,12 +4,7 @@ import {RootStackParamList} from '../../App';
 
 type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
-function DetailsScreen({
-  route,
-}: {
-  route: DetailsScreenRouteProp;
-  navigation: any;
-}) {
+function DetailsScreen({route}: {route: DetailsScreenRouteProp}) {
   const {id} = route.params;
   console.log('roeeute', id);
 

@@ -12,3 +12,6 @@ export interface UpdateCommand extends Omit<Partial<CreateCommand>, 'id'> {}
 export interface GetAllResponse {
   books: Book[];
 }
+export interface GetByIdResponse {
+  book: Book;
+}

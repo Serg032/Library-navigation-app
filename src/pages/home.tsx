@@ -4,10 +4,10 @@ import {RootStackParamList} from '../../App';
 import BookService from '../books/service';
 import {Book} from '../books/domain';
 import {useEffect, useState} from 'react';
-import {Alert, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import BookCard from '../components/book-card';
 
-type ProfileScreenNavigationProp =
+export type ProfileScreenNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
 
 const booksService = new BookService();
@@ -34,14 +34,7 @@ function HomeScreen({navigation}: {navigation: ProfileScreenNavigationProp}) {
         ) : (
           <Text>Theres no books</Text>
         )}
-        {/* <Button
-          onPress={() => {
-            navigation.navigate('Details', {
-              id: '86',
-            });
-          }}>
-          <ButtonText>Go to details</ButtonText>
-        </Button> */}
+
         <Button onPress={refreshData} marginBottom={10}>
           <ButtonText>Refresh</ButtonText>
         </Button>

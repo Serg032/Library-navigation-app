@@ -8,12 +8,12 @@ import DetailsScreen from './src/pages/detail';
 import HomeScreen from './src/pages/home';
 import NavBar from './src/components/navbar';
 import CreateBook from './src/pages/create-book';
+import UpdateBook from './src/pages/update-book';
 
 export type RootStackParamList = {
   Home: undefined;
-  Details: {id: string};
-  Feed: {sort: 'latest' | 'top'} | undefined;
   CreateBook: undefined;
+  UpdateBook: {id: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,6 +30,7 @@ function App() {
             options={{title: 'Details'}}
           />
           <Stack.Screen name="CreateBook" component={CreateBook} />
+          <Stack.Screen name="UpdateBook" component={UpdateBook} />
         </Stack.Navigator>
         <NavBar />
       </NavigationContainer>

@@ -5,18 +5,21 @@ import {
   ButtonText,
   Heading,
   Image,
-  Link,
   Text,
   VStack,
 } from '@gluestack-ui/themed';
 import {Book} from '../books/domain';
 import {colors} from '../theme';
+import {ProfileScreenNavigationProp} from '../pages/home';
+import {useNavigation} from '@react-navigation/native';
 
 interface BookCardProps {
   book: Book;
 }
 
 const BookCard = (props: BookCardProps) => {
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
+
   return (
     <Box
       maxWidth="$64"
@@ -64,7 +67,13 @@ const BookCard = (props: BookCardProps) => {
           Pages: {props.book.pages}
         </Text>
         <ButtonGroup display="flex" flexDirection="column" alignItems="center">
-          <Button width={100}>
+          <Button
+            width={100}
+            onPress={() => {
+              navigation.navigate('UpdateBook', {
+                id: props.book.id,
+              });
+            }}>
             <ButtonText>Update</ButtonText>
           </Button>
           <Button bgColor={colors.accent} width={100}>

@@ -24,7 +24,7 @@ const UpdateBook = ({route}: {route: UpdateBookScreenRouteProp}) => {
 
   const updateBook = async () => {
     try {
-      await booksService.updateBook(
+      await booksService.update(
         {
           name: title !== '' ? title : undefined,
           author: author !== '' ? author : undefined,

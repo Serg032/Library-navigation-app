@@ -12,7 +12,7 @@ export default class BookService {
     return await response.json();
   }
 
-  async createBook(command: CreateCommand): Promise<void> {
+  async create(command: CreateCommand): Promise<void> {
     try {
       const response = await fetch('http://localhost:3000/books', {
         method: 'POST',
@@ -27,7 +27,7 @@ export default class BookService {
     }
   }
 
-  async updateBook(command: UpdateCommand, id: string): Promise<void> {
+  async update(command: UpdateCommand, id: string): Promise<void> {
     try {
       const response = await fetch(`http://localhost:3000/books/${id}`, {
         method: 'PUT',
@@ -35,6 +35,17 @@ export default class BookService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(command),
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async delete(id: string): Promise<void> {
+    try {
+      const response = await fetch(`http://localhost:3000/books/${id}`, {
+        method: 'DELETE',
       });
       console.log(response);
     } catch (error) {

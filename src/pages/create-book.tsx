@@ -24,7 +24,7 @@ const CreateBook = () => {
 
   const sendBookData = async () => {
     try {
-      await booksService.createBook({
+      await booksService.create({
         name: title,
         author,
         publisher,
@@ -37,7 +37,6 @@ const CreateBook = () => {
       setPages('');
       setImg('');
       Alert.alert('Book created');
-      
     } catch (error) {
       Alert.alert('Something went wrong');
     }

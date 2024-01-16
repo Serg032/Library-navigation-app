@@ -12,13 +12,26 @@ import {Book} from '../books/domain';
 import {colors} from '../theme';
 import {ProfileScreenNavigationProp} from '../pages/home';
 import {useNavigation} from '@react-navigation/native';
+import BookService from '../books/service';
+import {Alert} from 'react-native';
 
 interface BookCardProps {
   book: Book;
 }
 
+const bookService = new BookService();
+
 const BookCard = (props: BookCardProps) => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
+
+  const DeleteBook = async () => {
+    try {
+      await bookService.delete(props.book.id);
+      Alert.alert('Book deleted successfully. Refresh the screen');
+    } catch (error) {
+      Alert.alert('Something went wrong');
+    }
+  };
 
   return (
     <Box
@@ -77,7 +90,7 @@ const BookCard = (props: BookCardProps) => {
             <ButtonText>Update</ButtonText>
           </Button>
           <Button bgColor={colors.accent} width={100}>
-            <ButtonText>Delete</ButtonText>
+            <ButtonText onPress={DeleteBook}>Delete</ButtonText>
           </Button>
         </ButtonGroup>
       </VStack>

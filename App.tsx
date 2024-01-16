@@ -9,11 +9,13 @@ import HomeScreen from './src/pages/home';
 import NavBar from './src/components/navbar';
 import CreateBook from './src/pages/create-book';
 import UpdateBook from './src/pages/update-book';
+import FindBook from './src/pages/find-book';
 
 export type RootStackParamList = {
   Home: undefined;
   CreateBook: undefined;
   UpdateBook: {id: string};
+  FindBook: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,6 +28,7 @@ function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="CreateBook" component={CreateBook} />
           <Stack.Screen name="UpdateBook" component={UpdateBook} />
+          <Stack.Screen name="FindBook" component={FindBook} />
         </Stack.Navigator>
         <NavBar />
       </NavigationContainer>

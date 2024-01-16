@@ -31,6 +31,11 @@ const NavBar = () => {
     handleClose();
   };
 
+  const goToFindBook = () => {
+    navigation.navigate('FindBook');
+    handleClose();
+  };
+
   return (
     <Box>
       <Button onPress={handleClose} bgColor={colors.primary}>
@@ -48,8 +53,8 @@ const NavBar = () => {
           <ActionsheetItem onPress={goToCreateBook}>
             <ActionsheetItemText>Create Book</ActionsheetItemText>
           </ActionsheetItem>
-          <ActionsheetItem onPress={handleClose}>
-            <ActionsheetItemText>Search</ActionsheetItemText>
+          <ActionsheetItem onPress={goToFindBook}>
+            <ActionsheetItemText>Search by id</ActionsheetItemText>
           </ActionsheetItem>
         </ActionsheetContent>
       </Actionsheet>

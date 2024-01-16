@@ -38,6 +38,7 @@ const UpdateBook = ({
       return response.book;
     } catch (error) {
       console.log(error);
+      Alert.alert('Something went wrong');
     }
   };
   const updateBook = async () => {

@@ -16,7 +16,7 @@ import {
 import {useState} from 'react';
 import BookService from '../books/service';
 import {Book} from '../books/domain';
-import {StyleSheet} from 'react-native';
+import {Alert, StyleSheet} from 'react-native';
 
 const bookService = new BookService();
 
@@ -29,8 +29,8 @@ const FindBook = () => {
       const response = await bookService.getById(id);
       console.log(response);
       setBook(response.book);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      Alert.alert('Something went wrong');
     }
   };
 

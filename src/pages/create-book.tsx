@@ -9,13 +9,16 @@ import {
   InputField,
   View,
 } from '@gluestack-ui/themed';
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import {Alert, StyleSheet} from 'react-native';
 import BookService from '../books/service';
+import {BooksContext} from '../../App';
+import {Book, CreateCommand} from '../books/domain';
 
 const booksService = new BookService();
 
-const CreateBook = () => {
+const CreateBook = (props: {createBook: (book: CreateCommand) => void}) => {
+  const {books} = useContext(BooksContext);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [publisher, setPublisher] = useState('');
@@ -36,6 +39,13 @@ const CreateBook = () => {
       setPublisher('');
       setPages('');
       setImg('');
+      props.createBook({
+        name: title,
+        author,
+        publisher,
+        pages: parseInt(pages),
+        img,
+      });
       Alert.alert('Book created');
     } catch (error) {
       Alert.alert('Something went wrong');

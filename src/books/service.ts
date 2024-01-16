@@ -1,4 +1,4 @@
-import {CreateCommand, GetByIdResponse, UpdateCommand} from './domain';
+import {Book, CreateCommand, GetByIdResponse, UpdateCommand} from './domain';
 import {GetAllResponse} from './domain';
 
 export default class BookService {

@@ -14,19 +14,24 @@ import {ProfileScreenNavigationProp} from '../pages/home';
 import {useNavigation} from '@react-navigation/native';
 import BookService from '../books/service';
 import {Alert} from 'react-native';
+import {useContext} from 'react';
+import {BooksContext} from '../../App';
 
 interface BookCardProps {
   book: Book;
+  deleteBook: (id: string) => void;
 }
 
 const bookService = new BookService();
 
 const BookCard = (props: BookCardProps) => {
+  const {books} = useContext(BooksContext);
   const navigation = useNavigation<ProfileScreenNavigationProp>();
 
   const DeleteBook = async () => {
     try {
       await bookService.delete(props.book.id);
+      props.deleteBook(props.book.id);
       Alert.alert('Book deleted successfully. Refresh the screen');
     } catch (error) {
       Alert.alert('Something went wrong');

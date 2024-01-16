@@ -1,43 +1,27 @@
-import {Button, ButtonText, ScrollView, Text, View} from '@gluestack-ui/themed';
+import {ScrollView, Text, View} from '@gluestack-ui/themed';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../App';
-import BookService from '../books/service';
-import {Book} from '../books/domain';
-import {useEffect, useState} from 'react';
+import {BooksContext, RootStackParamList} from '../../App';
+
+import {useContext} from 'react';
 import {StyleSheet} from 'react-native';
 import BookCard from '../components/book-card';
 
 export type ProfileScreenNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
 
-const booksService = new BookService();
-
-function HomeScreen({navigation}: {navigation: ProfileScreenNavigationProp}) {
-  const [books, setBooks] = useState<Book[]>([]);
-  const fetchData = async () => {
-    const response = await booksService.getAll();
-    return response.books;
-  };
-  const refreshData = async () => {
-    const response = await booksService.getAll();
-    setBooks(response.books);
-  };
-  useEffect(() => {
-    fetchData().then(response => setBooks(response));
-  }, []);
+function HomeScreen(props: {deleteBook: (id: string) => void}) {
+  const books = useContext(BooksContext).books;
 
   return (
     <View style={styles.container}>
       <ScrollView>
         {books ? (
-          books.map(book => <BookCard key={book.id} book={book} />)
+          books.map(book => (
+            <BookCard key={book.id} book={book} deleteBook={props.deleteBook} />
+          ))
         ) : (
-          <Text>Theres no books</Text>
+          <Text>There's no books</Text>
         )}
-
-        <Button onPress={refreshData} marginBottom={10}>
-          <ButtonText>Refresh</ButtonText>
-        </Button>
       </ScrollView>
     </View>
   );

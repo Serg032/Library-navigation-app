@@ -12,10 +12,25 @@ import {
 } from '@gluestack-ui/themed';
 import React from 'react';
 import {colors} from '../theme';
+import {RootStackParamList} from '../../App';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+
+export type ScreenProp = StackNavigationProp<RootStackParamList>;
 
 const NavBar = () => {
+  const navigation = useNavigation<ScreenProp>();
   const [showActionsheet, setShowActionsheet] = React.useState(false);
   const handleClose = () => setShowActionsheet(!showActionsheet);
+  const goToCreateBook = () => {
+    navigation.navigate('CreateBook');
+    handleClose();
+  };
+  const goToHome = () => {
+    navigation.navigate('Home');
+    handleClose();
+  };
+
   return (
     <Box>
       <Button onPress={handleClose} bgColor={colors.primary}>
@@ -27,10 +42,10 @@ const NavBar = () => {
           <ActionsheetDragIndicatorWrapper>
             <ActionsheetDragIndicator />
           </ActionsheetDragIndicatorWrapper>
-          <ActionsheetItem onPress={handleClose}>
+          <ActionsheetItem onPress={goToHome}>
             <ActionsheetItemText>Home</ActionsheetItemText>
           </ActionsheetItem>
-          <ActionsheetItem onPress={handleClose}>
+          <ActionsheetItem onPress={goToCreateBook}>
             <ActionsheetItemText>Create Book</ActionsheetItemText>
           </ActionsheetItem>
           <ActionsheetItem onPress={handleClose}>

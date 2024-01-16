@@ -7,11 +7,13 @@ import {config} from '@gluestack-ui/config';
 import DetailsScreen from './src/pages/detail';
 import HomeScreen from './src/pages/home';
 import NavBar from './src/components/navbar';
+import CreateBook from './src/pages/create-book';
 
 export type RootStackParamList = {
   Home: undefined;
   Details: {id: string};
   Feed: {sort: 'latest' | 'top'} | undefined;
+  CreateBook: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -27,6 +29,7 @@ function App() {
             component={DetailsScreen}
             options={{title: 'Details'}}
           />
+          <Stack.Screen name="CreateBook" component={CreateBook} />
         </Stack.Navigator>
         <NavBar />
       </NavigationContainer>

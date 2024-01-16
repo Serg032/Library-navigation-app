@@ -34,13 +34,16 @@ function HomeScreen({navigation}: {navigation: ProfileScreenNavigationProp}) {
         ) : (
           <Text>Theres no books</Text>
         )}
-        <Button
+        {/* <Button
           onPress={() => {
             navigation.navigate('Details', {
               id: '86',
             });
           }}>
           <ButtonText>Go to details</ButtonText>
+        </Button> */}
+        <Button onPress={refreshData} marginBottom={10}>
+          <ButtonText>Refresh</ButtonText>
         </Button>
       </ScrollView>
     </View>

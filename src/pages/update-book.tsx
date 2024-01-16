@@ -14,14 +14,32 @@ import {Alert, StyleSheet} from 'react-native';
 import BookService from '../books/service';
 import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../App';
+import {Book, UpdateCommand} from '../books/domain';
 
 type UpdateBookScreenRouteProp = RouteProp<RootStackParamList, 'UpdateBook'>;
 
 const booksService = new BookService();
 
-const UpdateBook = ({route}: {route: UpdateBookScreenRouteProp}) => {
+const UpdateBook = ({
+  route,
+  updateContextFunction,
+}: {
+  route: UpdateBookScreenRouteProp;
+  updateContextFunction: (
+    book: Book | undefined,
+    command: UpdateCommand,
+  ) => void;
+}) => {
   const {id} = route.params;
 
+  const getBookToUpdateState = async () => {
+    try {
+      const response = await booksService.getById(id);
+      return response.book;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const updateBook = async () => {
     try {
       await booksService.update(
@@ -34,11 +52,20 @@ const UpdateBook = ({route}: {route: UpdateBookScreenRouteProp}) => {
         },
         id,
       );
+      const bookToUpdateState = await getBookToUpdateState();
+      updateContextFunction(bookToUpdateState, {
+        name: title !== '' ? title : undefined,
+        author: author !== '' ? author : undefined,
+        publisher: publisher !== '' ? publisher : undefined,
+        pages: pages !== '' ? parseInt(pages) : undefined,
+        img: img !== '' ? img : undefined,
+      });
       setTitle('');
       setAuthor('');
       setPublisher('');
       setPages('');
       setImg('');
+
       Alert.alert(
         'Book updated, go to home screen and refresh with refresh button at the bottom screen',
       );
@@ -46,10 +73,6 @@ const UpdateBook = ({route}: {route: UpdateBookScreenRouteProp}) => {
       Alert.alert('Something went wrong');
     }
   };
-
-  // useEffect(() => {
-  //   fetchBook().then(response => console.log('BOOK at update', response?.book));
-  // });
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');

@@ -9,7 +9,7 @@ import NavBar from './src/components/navbar';
 import CreateBook from './src/pages/create-book';
 import UpdateBook from './src/pages/update-book';
 import FindBook from './src/pages/find-book';
-import {Book, CreateCommand} from './src/books/domain';
+import {Book, CreateCommand, UpdateCommand} from './src/books/domain';
 import BookService from './src/books/service';
 export type RootStackParamList = {
   Home: undefined;
@@ -29,6 +29,22 @@ function App() {
   const createBook = (book: CreateCommand) => {
     const newBook = {...book, id: 'custom'};
     setBooks([...books, newBook]);
+  };
+
+  const updateBook = (book: Book | undefined, command: UpdateCommand) => {
+    if (!book) return;
+    const updatedBook: Book = {
+      id: book.id ? book.id : 'custom',
+      name: command.name ? command.name : book.name,
+      author: command.author ? command.author : book.author,
+      publisher: command.publisher ? command.publisher : book.publisher,
+      pages: command.pages ? command.pages : book.pages,
+      img: command.img ? command.img : book.img,
+    };
+    const updatedBooks = books.map(b =>
+      b.id === updatedBook.id ? updatedBook : b,
+    );
+    setBooks(updatedBooks);
   };
   const deleteBook = (id: string) => {
     setBooks(books.filter(book => book.id !== id));
@@ -52,7 +68,11 @@ function App() {
             <Stack.Screen name="CreateBook">
               {props => <CreateBook {...props} createBook={createBook} />}
             </Stack.Screen>
-            <Stack.Screen name="UpdateBook" component={UpdateBook} />
+            <Stack.Screen name="UpdateBook">
+              {props => (
+                <UpdateBook {...props} updateContextFunction={updateBook} />
+              )}
+            </Stack.Screen>
             <Stack.Screen name="FindBook" component={FindBook} />
           </Stack.Navigator>
           <NavBar />

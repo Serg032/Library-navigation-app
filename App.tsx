@@ -24,11 +24,6 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen
-            name="Details"
-            component={DetailsScreen}
-            options={{title: 'Details'}}
-          />
           <Stack.Screen name="CreateBook" component={CreateBook} />
           <Stack.Screen name="UpdateBook" component={UpdateBook} />
         </Stack.Navigator>
